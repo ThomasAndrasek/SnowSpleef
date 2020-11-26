@@ -1,0 +1,36 @@
+main: com.thomasandrasek.snowspleef.Main
+name: SnowSpleef
+version: 1.0.0
+api-version: 1.16
+description: Classic spleef in the snow.
+commands:
+   ss:
+      description: General Snow Spleef command.
+      usage: /ss
+      permission: snowspleef.ss
+      permission-message: You don't have the snowspleef.ss permission.
+      wand:
+         description: Gives player Snow Spleef wand.
+         usage: /ss wand
+         permission: snowspleef.ss.wand
+         permission-message: You don't have the snowspleef.ss.wand permission.
+      create-arena:
+         description: Creates the snowspleef arena.
+         usage: /ss create-arena
+         permission: snowspleef.ss.create-arena
+         permission-message: You don't have the snowspleef.ss.create-arena permission.
+      set-players:
+         description: Sets the players to play in the snowspleef arena.
+         usage: /ss set-players [player1] [player2]
+         permission: snowspleef.ss.set-players
+         permission-message: You don't have the snowspleef.ss.set-players permission.
+      start:
+         description: Starts the arena.
+         usage: /ss start
+         permission: snowspleef.ss.start
+         permission-message: You don't have the snowspleef.ss.start permission.
+      set-lobby-spawn:
+         description: Sets the lobby spawn.
+         usage: /ss set-lobby-spawn
+         permission: snowspleef.ss.set-lobby-spawn
+         permission-message: You don't have the snowspleef.ss.set-lobby-spawn permission.
