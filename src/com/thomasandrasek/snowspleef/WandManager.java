@@ -41,25 +41,23 @@ public class WandManager {
 		return null;
 	}
 	
-	public static boolean setLocationOne(String name, Location location) {
+	public static void setLocationOne(String name, Location location) {
 		Wand wand = getWand(name);
 		
-		if (wand != null) {
-			wand.setLocationOne(location);
-			return true;
+		if (wand == null) {
+			wand = new Wand(name);
+			wands.add(wand);
 		}
-		
-		return false;
+		wand.setLocationOne(location);
 	}
 	
-	public static boolean setLocationTwo(String name, Location location) {
+	public static void setLocationTwo(String name, Location location) {
 		Wand wand = getWand(name);
 		
-		if (wand != null) {
-			wand.setLocationTwo(location);
-			return true;
+		if (wand == null) {
+			wand = new Wand(name);
+			wands.add(wand);
 		}
-		
-		return false;
+		wand.setLocationTwo(location);
 	}
 }

@@ -7,8 +7,10 @@ import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class PListener implements Listener{
 	
@@ -18,6 +20,25 @@ public class PListener implements Listener{
         plugin.getServer().getPluginManager().registerEvents((Listener) this, plugin);
         this.plugin = plugin;
     }
+    
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent event) {
+    	if (event.getBlock().getType().equals(Material.SNOW_BLOCK)) {
+    		if (ArenaManager.isArenaActive()) {
+    			Arena arena = ArenaManager.getArena();
+    			Player player = event.getPlayer();
+    			
+    			if (arena.getPlayerOne() != null && arena.getPlayerTwo() != null) {
+    				if (arena.getPlayerOne().equals(player) || arena.getPlayerTwo().equals(player)) {
+        				event.setCancelled(true);
+        				event.getBlock().setType(Material.AIR);
+        				ItemStack snowball = new ItemStack(Material.SNOWBALL);
+        				event.getPlayer().getInventory().addItem(snowball);
+        			}
+    			}
+    		}
+    	}
+    }
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
@@ -26,14 +47,12 @@ public class PListener implements Listener{
     			event.getPlayer().getInventory().getItemInMainHand().getItemMeta().isUnbreakable())
     	{
     		if (event.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
-    			if (WandManager.setLocationOne(event.getPlayer().getDisplayName(), event.getClickedBlock().getLocation())) {
-    				event.getPlayer().sendMessage("Set location 1");
-    			}
+    			WandManager.setLocationOne(event.getPlayer().getDisplayName(), event.getClickedBlock().getLocation());
+    			event.getPlayer().sendMessage("Set location 1");
     		}
     		else if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-    			if (WandManager.setLocationTwo(event.getPlayer().getDisplayName(), event.getClickedBlock().getLocation())) {
-    				event.getPlayer().sendMessage("Set location 2");
-    			}
+    			WandManager.setLocationTwo(event.getPlayer().getDisplayName(), event.getClickedBlock().getLocation());
+    			event.getPlayer().sendMessage("Set location 2");
     		}
     		
     		event.setCancelled(true);
