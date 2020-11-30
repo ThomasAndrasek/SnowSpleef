@@ -67,7 +67,7 @@ public class ArenaManager {
 	}
 	
 	public static boolean playerHasFallen(Arena arena, Player player) {
-		if (arena.getMaxLocation().getY() - player.getLocation().getY() > 0.5) {
+		if (arena.getMaxLocation().getY() - player.getLocation().getY() + 1 > 0.5) {
 			return true;
 		}
 		
@@ -84,6 +84,17 @@ public class ArenaManager {
 					player.getInventory().remove(player.getInventory().getContents()[i]);
 					break;
 				}
+			}
+		}
+	}
+	
+	public static void removeSnowBalls(Player player) {
+		for (int i = 0; i < player.getInventory().getContents().length; i++) {
+			
+			if (player.getInventory().getContents()[i] != null && 
+					player.getInventory().getContents()[i].getType().equals(Material.SNOWBALL)) {
+				
+				player.getInventory().remove(player.getInventory().getContents()[i]);
 			}
 		}
 	}
@@ -179,6 +190,9 @@ public class ArenaManager {
 						
 						removeShovel(arena.getPlayerOne());
 						removeShovel(arena.getPlayerTwo());
+						
+						removeSnowBalls(arena.getPlayerOne());
+						removeSnowBalls(arena.getPlayerTwo());
 						
 						matchOver = true;
 						
